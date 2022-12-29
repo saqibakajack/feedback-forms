@@ -21,7 +21,7 @@ export const getForms = async (req, res) => {
                 const text = textElem ? textElem.innerText : null;
                 return {
                     name: text.split('-').at(-1).trim(),
-                    description: text,
+                    description: text.replace(/-/g, ' '),
                     link: linkElem ? linkElem.getAttribute('href') : ''
                 }
             }
@@ -45,24 +45,12 @@ export const submitForm = async (req, res) => {
 
     await page.goto(`https://qalam.nust.edu.pk${link}`, {waitUntil: 'load', timeout: 0});
 
-    let options = await page.evaluate(
-        () => Array.from(
-            document.querySelectorAll('input[type="radio"]'),
-        )
-    );
+    let option = await page.$('input[type="radio"]');
 
-    let i = 0;
-    while (options.length !== 0) {
-        console.log(i);
-        i += 1;
-        await options[1].click();
+    while (option) {
+        await option.click();
         await page.waitForNavigation({waitUntil: 'networkidle2', timeout: 0});
-        options = await page.evaluate(
-            () => Array.from(
-                document.querySelectorAll('input'),
-                (a) => a
-            )
-        );
+        option = await page.$('input[type="radio"]');
     }
 
     const textarea = await page.$('textarea');

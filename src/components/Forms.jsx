@@ -7,7 +7,7 @@ export function Forms({forms = [], token}) {
         <section
             id="secondary-features"
             aria-label="Forms"
-            className="mt-12"
+            className="mt-12 pb-12"
         >
             <Container>
                 <div className='flex justify-between'>
