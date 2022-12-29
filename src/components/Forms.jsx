@@ -1,8 +1,12 @@
 import {Container} from '@/components/Container'
 import Form from "@/components/Form";
 import {Button} from "@/components/Button";
+import {useState} from "react";
+import Modal from "@/components/Modal";
 
 export function Forms({forms = [], token}) {
+    const [showModal, setShowModal] = useState(false)
+
     return (
         <section
             id="secondary-features"
@@ -15,7 +19,7 @@ export function Forms({forms = [], token}) {
                         Active Forms
                     </h1>
                     <div>
-                        <Button className="">
+                        <Button className="" onClick={() => setShowModal(true)}>
                             Auto Fill All
                         </Button>
                     </div>
@@ -33,6 +37,8 @@ export function Forms({forms = [], token}) {
                     </ul>
                 )}
             </Container>
+
+            <Modal open={showModal} setOpen={setShowModal} token={token} forms={forms}/>
         </section>
     )
 }

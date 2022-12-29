@@ -2,12 +2,14 @@ import {getSession} from "next-auth/react";
 import {Header} from "@/components/Header";
 import {Forms} from "@/components/Forms";
 import axios from "@/lib/axios";
+import {Footer} from "@/components/Footer";
 
 const Home = ({forms = [], token}) => {
     return (
         <>
             <Header/>
             <Forms forms={forms} token={token}/>
+            <Footer/>
         </>
     )
 }
